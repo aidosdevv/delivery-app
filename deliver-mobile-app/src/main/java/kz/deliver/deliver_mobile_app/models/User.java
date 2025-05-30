@@ -24,7 +24,7 @@ public class User {
 
     private int age;
 
-    private boolean is_enabled = false;
+    private boolean Enabled = false;
 
     private int orders = 0;
 

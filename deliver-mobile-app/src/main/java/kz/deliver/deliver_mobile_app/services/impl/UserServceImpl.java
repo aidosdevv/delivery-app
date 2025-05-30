@@ -44,7 +44,7 @@ public class UserServceImpl implements UserService {
             updateUser.setEmail(user.getEmail());
             updateUser.setOrders(user.getOrders());
             updateUser.setAge(user.getAge());
-            updateUser.set_enabled(user.is_enabled());
+            updateUser.setEnabled(false);
             updateUser.setPassword(user.getPassword());
             userRepository.save(updateUser);
             return userMapper.toDto(userRepository.save(updateUser));

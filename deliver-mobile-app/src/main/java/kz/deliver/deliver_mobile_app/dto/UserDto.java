@@ -19,7 +19,7 @@ public class UserDto {
 
     private int age;
 
-    private boolean is_enabled = false;
+    private boolean enabled = false;
 
     private int orders = 0;
 }

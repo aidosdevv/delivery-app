@@ -22,4 +22,6 @@ public class UserDto {
     private boolean enabled = false;
 
     private int orders = 0;
+
+    private Long orderId;
 }

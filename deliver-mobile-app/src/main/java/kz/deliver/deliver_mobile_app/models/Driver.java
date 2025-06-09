@@ -5,30 +5,23 @@ import lombok.*;
 
 import java.util.List;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@Builder
 @Entity
-@Table(name = "t_users")
+@Table(name = "t_drivers")
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@Builder
+public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String name;
+    private String phone;
+    private String licenseNumber;
 
-    private String password;
-
-    private String email;
-
-    private int age;
-
-    private boolean Enabled = false;
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "driver")
     private List<Order> orders;
-
 }

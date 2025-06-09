@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserServceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
@@ -66,4 +66,27 @@ public class UserServceImpl implements UserService {
     public List<UserDto> getAllUsers() {
         return userMapper.toDtoList(userRepository.findAll());
     }
+
+    @Override
+    public String changePassword(Long id, String oldPassword, String newPassword, String repeatNewPassword) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return "User not found";
+        }
+
+        //if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+        //    return "Old password is incorrect";
+        //}
+
+        if (!newPassword.equals(repeatNewPassword)) {
+            return "New password is not equal to repeat new password";
+        }
+
+        //user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPassword(newPassword);
+        userRepository.save(user);
+
+        return "Password successfully changed";
+    }
+
 }

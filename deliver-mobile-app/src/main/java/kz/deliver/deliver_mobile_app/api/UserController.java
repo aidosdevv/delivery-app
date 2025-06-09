@@ -33,6 +33,7 @@ public class UserController {
     public boolean deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
     }
+
     @GetMapping
     public List<UserDto> getAllUsers(){
         return userService.getAllUsers();

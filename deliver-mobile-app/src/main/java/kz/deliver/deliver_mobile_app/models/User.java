@@ -9,10 +9,10 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "t_users")
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -29,10 +29,12 @@ public class User {
 
     private boolean enabled = false;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Order> madeOrders;
+
+    @OneToMany(mappedBy = "driver")
+    private List<Order> takenOrders;
 }

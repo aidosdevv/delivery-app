@@ -1,6 +1,7 @@
 package kz.deliver.deliver_mobile_app.services;
 
 import kz.deliver.deliver_mobile_app.dto.OrderDto;
+import kz.deliver.deliver_mobile_app.models.Order;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface OrderService {
     OrderDto updateOrder(Long id,OrderDto orderDto);
     boolean deleteOrder(Long id);
     OrderDto getOrderById(Long id);
-    List<OrderDto> getAllOrders();
+    List<Order> getAllOrders();
 }

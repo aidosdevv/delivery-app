@@ -1,6 +1,7 @@
 package kz.deliver.deliver_mobile_app.models;
 
 import jakarta.persistence.*;
+import kz.deliver.deliver_mobile_app.enums.Role;
 import lombok.*;
 
 import java.util.List;
@@ -26,9 +27,12 @@ public class User {
 
     private int age;
 
-    private boolean Enabled = false;
+    private boolean enabled = false;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }

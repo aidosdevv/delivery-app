@@ -1,5 +1,6 @@
 package kz.deliver.deliver_mobile_app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import kz.deliver.deliver_mobile_app.enums.Role;
 import lombok.*;
@@ -27,12 +28,13 @@ public class User {
 
     private int age;
 
-    private boolean enabled = false;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<Order> madeOrders;
 
     @OneToMany(mappedBy = "driver")

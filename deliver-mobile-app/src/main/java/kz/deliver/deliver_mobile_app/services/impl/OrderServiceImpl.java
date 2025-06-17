@@ -81,4 +81,25 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public OrderDto setDriver(Long driverId,Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        if(order == null){
+            return null;
+        }
+
+        User user = userRepository.findById(driverId).orElse(null);
+
+        if(!user.isEnabled()){
+            return null;
+        }
+        order.setDriver(user);
+        orderRepository.save(order);
+        return orderMapper.toDto(order);
+    }
+
+
+
 }

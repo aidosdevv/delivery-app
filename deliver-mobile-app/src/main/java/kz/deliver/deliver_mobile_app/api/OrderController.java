@@ -42,4 +42,9 @@ public class OrderController {
         return orderService.deleteOrder(id);
     }
 
+    @PutMapping("/{driverId}/{orderId}")
+    public OrderDto setDriverById(@PathVariable Long driverId,@PathVariable Long orderId){
+        return orderService.setDriver(driverId,orderId);
+    }
+
 }

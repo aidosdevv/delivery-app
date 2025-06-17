@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             updateUser.setUsername(user.getUsername());
             updateUser.setEmail(user.getEmail());
             updateUser.setAge(user.getAge());
-            updateUser.setEnabled(true);
+            updateUser.setEnabled(false);
             updateUser.setPassword(user.getPassword());
             updateUser.setRole(user.getRole());
             userRepository.save(updateUser);
@@ -88,5 +88,28 @@ public class UserServiceImpl implements UserService {
 
         return "Password successfully changed";
     }
+
+    @Override
+    public UserDto becomeDriver(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user==null){
+            return null;
+        }
+        user.setEnabled(true);
+        userRepository.save(user);
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserDto becomeCustomer(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if(user==null){
+            return null;
+        }
+        user.setEnabled(false);
+        userRepository.save(user);
+        return userMapper.toDto(user);
+    }
+
 
 }

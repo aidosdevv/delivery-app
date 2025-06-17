@@ -39,4 +39,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @PutMapping("/becomeDriver/{id}")
+    public UserDto becomeDriver(@PathVariable Long id){
+        return userService.becomeDriver(id);
+    }
+
+    @PutMapping("/becomeCustomer/{id}")
+    public UserDto becomeCustomer(@PathVariable Long id){
+        return userService.becomeCustomer(id);
+    }
 }

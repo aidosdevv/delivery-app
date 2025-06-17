@@ -11,4 +11,6 @@ public interface OrderService {
     boolean deleteOrder(Long id);
     OrderDto getOrderById(Long id);
     List<Order> getAllOrders();
+    OrderDto setDriver(Long driverId,Long orderId);
+
 }

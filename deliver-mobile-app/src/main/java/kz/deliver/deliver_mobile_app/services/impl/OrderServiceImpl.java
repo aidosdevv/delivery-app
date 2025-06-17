@@ -3,7 +3,9 @@ package kz.deliver.deliver_mobile_app.services.impl;
 import kz.deliver.deliver_mobile_app.dto.OrderDto;
 import kz.deliver.deliver_mobile_app.mapper.OrderMapper;
 import kz.deliver.deliver_mobile_app.models.Order;
+import kz.deliver.deliver_mobile_app.models.User;
 import kz.deliver.deliver_mobile_app.repository.OrderRepository;
+import kz.deliver.deliver_mobile_app.repository.UserRepository;
 import kz.deliver.deliver_mobile_app.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,16 +17,31 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
     private final OrderMapper orderMapper;
 
     @Override
     public OrderDto addOrder(OrderDto orderDto) {
-        Order order = orderMapper.toEntity(orderDto);
-        if(order != null){
-            orderRepository.save(order);
+        User customer = userRepository.findById(orderDto.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + orderDto.getCustomerId()));
+
+        if (!customer.isEnabled()) {
+            throw new RuntimeException("Customer is not active");
         }
-        return orderMapper.toDto(order);
+
+        Order order = orderMapper.toEntity(orderDto);
+        if (order == null) {
+            throw new RuntimeException("Failed to map OrderDto to Order entity");
+        }
+
+        order.setCustomer(customer);
+
+        Order saved = orderRepository.save(order);
+
+        return orderMapper.toDto(saved);
     }
+
+
 
     @Override
     public OrderDto updateOrder(Long id, OrderDto orderDto) {
